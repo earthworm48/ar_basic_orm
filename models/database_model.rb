@@ -18,6 +18,12 @@ module Database
       @old_attributes = @attributes.dup
     end
 
+    def self.all
+      Database::Model.execute("SELECT * FROM cohorts").map do |row|
+        Cohort.new(row)
+      end
+    end
+    
     def save
       if new_record?
         results = insert!
